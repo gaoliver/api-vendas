@@ -37,14 +37,13 @@ export default class ProductsController {
 
         const createProduct = new CreateProductService();
 
-        await createProduct.execute({
+        const product = await createProduct.execute({
             name,
             price,
             quantity,
         });
 
-        const res = await new GetProductService().execute({ id });
-        return response.json(res);
+        return response.json(product);
     }
 
     public async update(
