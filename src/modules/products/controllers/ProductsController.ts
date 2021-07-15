@@ -23,9 +23,10 @@ export default class ProductsController {
 
         const getProduct = new GetProductService();
 
-        const product = await getProduct.execute({ id });
+        await getProduct.execute({ id });
 
-        return response.json(product);
+        const res = await new GetProductService().execute({ id });
+        return response.json(res);
     }
 
     public async create(
@@ -36,13 +37,14 @@ export default class ProductsController {
 
         const createProduct = new CreateProductService();
 
-        const product = await createProduct.execute({
+        await createProduct.execute({
             name,
             price,
             quantity,
         });
 
-        return response.json(product);
+        const res = await new GetProductService().execute({ id });
+        return response.json(res);
     }
 
     public async update(
@@ -54,14 +56,15 @@ export default class ProductsController {
 
         const updateProduct = new UpdateProductService();
 
-        const product = await updateProduct.execute({
+        await updateProduct.execute({
             id,
             name,
             price,
             quantity,
         });
 
-        return response.json(product);
+        const res = await new GetProductService().execute({ id });
+        return response.json(res);
     }
 
     public async delete(
