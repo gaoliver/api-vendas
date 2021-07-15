@@ -1,11 +1,14 @@
 import { getCustomRepository } from 'typeorm';
 
 import AppError from '@shared/errors/AppError';
-import Product from '../typeorm/entities/Product';
 import { ProductRepository } from '../typeorm/repositories/ProductsRepository';
 
+interface IResponse {
+    id: string;
+}
+
 export default class DeleteProductService {
-    public async execute({ id }: Product): Promise<void> {
+    public async execute({ id }: IResponse): Promise<void> {
         const productsRepository = getCustomRepository(ProductRepository);
 
         const product = await productsRepository.findOne(id);

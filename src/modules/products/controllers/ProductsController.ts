@@ -3,6 +3,8 @@ import { Request, Response } from 'express';
 import ListProductService from '../services/ListProductService';
 import GetProductService from '../services/GetProductService';
 import CreateProductService from '../services/CreateProductService';
+import UpdateProductService from '../services/UpdateProductService';
+import DeleteProductService from '../services/DeleteProductService';
 
 export default class ProductsController {
     public async index(
@@ -41,5 +43,39 @@ export default class ProductsController {
         });
 
         return response.json(product);
+    }
+
+    public async update(
+        request: Request,
+        response: Response,
+    ): Promise<Response> {
+        const { name, price, quantity } = request.body;
+        const { id } = request.params;
+
+        const updateProduct = new UpdateProductService();
+
+        const product = await updateProduct.execute({
+            id,
+            name,
+            price,
+            quantity,
+        });
+
+        return response.json(product);
+    }
+
+    public async delete(
+        request: Request,
+        response: Response,
+    ): Promise<Response> {
+        const { id } = request.params;
+
+        const deleteProduct = new DeleteProductService();
+
+        await deleteProduct.execute({ id });
+
+        return response.json({
+            message: 'Successfully deleted',
+        });
     }
 }
