@@ -8,6 +8,6 @@ routes.get('/', (request, response) => {
     return response.json({ message: 'Projeto API Vendas rodando!😎' });
 });
 
-routes.use('/product', productsRouter);
+routes.use('/', productsRouter);
 
 export default routes;
