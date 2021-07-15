@@ -1,15 +1,63 @@
 import { Router } from 'express';
+import { celebrate, Joi, Segments } from 'celebrate';
 
 import ProductsController from '../controllers/ProductsController';
 
 const productsRouter = Router();
 const productsController = new ProductsController();
 
-productsRouter.post('/product', productsController.create);
-productsRouter.get('/product/:id', productsController.get);
-productsRouter.patch('/product/:id', productsController.update);
-productsRouter.delete('/product/:id', productsController.delete);
+// Create Product
+productsRouter.post(
+    '/product',
+    celebrate({
+        [Segments.BODY]: {
+            name: Joi.string().required(),
+            price: Joi.number().precision(2).required(),
+            quantity: Joi.number().required(),
+        },
+    }),
+    productsController.create,
+);
 
+// Get Product by ID
+productsRouter.get(
+    '/product/:id',
+    celebrate({
+        [Segments.PARAMS]: {
+            id: Joi.string().uuid().required(),
+        },
+    }),
+    productsController.get,
+);
+
+// Edit Product
+productsRouter.patch(
+    '/product/:id',
+    celebrate({
+        [Segments.BODY]: {
+            name: Joi.string(),
+            price: Joi.number().precision(2),
+            quantity: Joi.number(),
+        },
+        [Segments.PARAMS]: {
+            id: Joi.string().uuid().required(),
+        },
+    }),
+    productsController.update,
+);
+
+// Delete Produto
+productsRouter.delete(
+    '/product/:id',
+    celebrate({
+        [Segments.PARAMS]: {
+            id: Joi.string().uuid().required(),
+        },
+    }),
+    productsController.delete,
+);
+
+// Listar todos os produtos
 productsRouter.get('/products', productsController.index);
 
 export default productsRouter;
