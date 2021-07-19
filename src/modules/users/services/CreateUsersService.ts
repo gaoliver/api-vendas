@@ -4,7 +4,6 @@ import AppError from '@shared/errors/AppError';
 import UserRepository from '../typeorm/repositories/UsersRepository';
 
 interface IRequest {
-    id: string;
     name: string;
     email: string;
     password: string;
@@ -13,7 +12,6 @@ interface IRequest {
 export default class CreateUserService {
     public async execute({
         name,
-        id,
         email,
         password,
     }: IRequest): Promise<IRequest> {
@@ -25,7 +23,6 @@ export default class CreateUserService {
         }
 
         const user = usersRepository.create({
-            id,
             name,
             email,
             password,
