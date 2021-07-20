@@ -7,6 +7,7 @@ import UpdateProductService from '../services/UpdateProductService';
 import DeleteProductService from '../services/DeleteProductService';
 
 export default class ProductsController {
+    // Default list products
     public async index(
         request: Request,
         response: Response,
@@ -18,6 +19,7 @@ export default class ProductsController {
         return response.json(products);
     }
 
+    // Get product
     public async get(request: Request, response: Response): Promise<Response> {
         const { id } = request.params;
 
@@ -29,6 +31,7 @@ export default class ProductsController {
         return response.json(res);
     }
 
+    // Create product
     public async create(
         request: Request,
         response: Response,
@@ -46,6 +49,7 @@ export default class ProductsController {
         return response.json(product);
     }
 
+    // Edit product
     public async update(
         request: Request,
         response: Response,
@@ -66,6 +70,7 @@ export default class ProductsController {
         return response.json(res);
     }
 
+    // Delete product
     public async delete(
         request: Request,
         response: Response,
