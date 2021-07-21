@@ -10,7 +10,8 @@
         "lint-fix": "eslint . --ext .ts --fix",
         "typeorm": "ts-node-dev ./node_modules/typeorm/cli.js",
         "migration:create": "yarn typeorm migration:create -n",
-        "migration:run": "yarn typeorm migration:run"
+        "migration:run": "yarn typeorm migration:run",
+        "migration:revert": "yarn typeorm migration:revert"
     },
     "devDependencies": {
         "@types/cors": "^2.8.12",
