@@ -8,7 +8,7 @@ const usersController = new UsersController();
 
 // Create User
 usersRouter.post(
-    '/user',
+    '/',
     celebrate({
         [Segments.BODY]: {
             name: Joi.string().required(),
@@ -21,7 +21,7 @@ usersRouter.post(
 
 // Get User by ID
 usersRouter.get(
-    '/user/:id',
+    '/:id',
     celebrate({
         [Segments.PARAMS]: {
             id: Joi.string().uuid().required(),
@@ -32,7 +32,7 @@ usersRouter.get(
 
 // Edit User
 usersRouter.patch(
-    '/user/:id',
+    '/:id',
     celebrate({
         [Segments.BODY]: {
             name: Joi.string(),
@@ -48,7 +48,7 @@ usersRouter.patch(
 
 // Delete Produto
 usersRouter.delete(
-    '/user/:id',
+    '/:id',
     celebrate({
         [Segments.PARAMS]: {
             id: Joi.string().uuid().required(),
@@ -58,6 +58,6 @@ usersRouter.delete(
 );
 
 // Listar todos os produtos
-usersRouter.get('/users', usersController.list);
+usersRouter.get('/', usersController.list);
 
 export default usersRouter;

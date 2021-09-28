@@ -8,7 +8,7 @@ const productsController = new ProductsController();
 
 // Create Product
 productsRouter.post(
-    '/product',
+    '/',
     celebrate({
         [Segments.BODY]: {
             name: Joi.string().required(),
@@ -21,7 +21,7 @@ productsRouter.post(
 
 // Get Product by ID
 productsRouter.get(
-    '/product/:id',
+    '/:id',
     celebrate({
         [Segments.PARAMS]: {
             id: Joi.string().uuid().required(),
@@ -32,7 +32,7 @@ productsRouter.get(
 
 // Edit Product
 productsRouter.patch(
-    '/product/:id',
+    '/:id',
     celebrate({
         [Segments.BODY]: {
             name: Joi.string(),
@@ -48,7 +48,7 @@ productsRouter.patch(
 
 // Delete Produto
 productsRouter.delete(
-    '/product/:id',
+    '/:id',
     celebrate({
         [Segments.PARAMS]: {
             id: Joi.string().uuid().required(),
@@ -58,6 +58,6 @@ productsRouter.delete(
 );
 
 // Listar todos os produtos
-productsRouter.get('/products', productsController.index);
+productsRouter.get('/', productsController.index);
 
 export default productsRouter;
