@@ -2,6 +2,7 @@ import { Router } from 'express';
 import { celebrate, Joi, Segments } from 'celebrate';
 
 import UsersController from '../controllers/UsersController';
+import IsAuthenticated from '../middlewares/IsAuthenticated';
 
 const usersRouter = Router();
 const usersController = new UsersController();
@@ -22,6 +23,7 @@ usersRouter.post(
 // Get User by ID
 usersRouter.get(
     '/:id',
+    IsAuthenticated,
     celebrate({
         [Segments.PARAMS]: {
             id: Joi.string().uuid().required(),
@@ -33,6 +35,7 @@ usersRouter.get(
 // Edit User
 usersRouter.patch(
     '/:id',
+    IsAuthenticated,
     celebrate({
         [Segments.BODY]: {
             name: Joi.string(),
@@ -49,6 +52,7 @@ usersRouter.patch(
 // Delete Produto
 usersRouter.delete(
     '/:id',
+    IsAuthenticated,
     celebrate({
         [Segments.PARAMS]: {
             id: Joi.string().uuid().required(),
@@ -58,6 +62,6 @@ usersRouter.delete(
 );
 
 // Listar todos os produtos
-usersRouter.get('/', usersController.list);
+usersRouter.get('/', IsAuthenticated, usersController.list);
 
 export default usersRouter;
