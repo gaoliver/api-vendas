@@ -9,7 +9,7 @@ import User from '../typeorm/entities/User';
 
 interface IRequest {
     user_id: string;
-    avatarFileName: string;
+    avatarFileName: string | undefined;
 }
 
 export default class UpdateUserAvatarService {
@@ -31,6 +31,10 @@ export default class UpdateUserAvatarService {
             if (userAvatarFileExists) {
                 await fs.promises.unlink(userAvatarFilePath);
             }
+        }
+
+        if (avatarFileName === undefined) {
+            throw new AppError('No media selected.');
         }
 
         user.avatar = avatarFileName;
