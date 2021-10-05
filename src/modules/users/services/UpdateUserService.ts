@@ -4,36 +4,35 @@ import AppError from '@shared/errors/AppError';
 import UsersRepository from '../typeorm/repositories/UsersRepository';
 
 interface IRequest {
+    id: string;
     name: string;
     email: string;
-    password: string;
 }
 
 export default class UpdateUserService {
-    public async execute({
-        name,
-        email,
-        password,
-    }: IRequest): Promise<IRequest> {
+    public async execute({ id, name, email }: IRequest): Promise<IRequest> {
         const usersRepository = getCustomRepository(UsersRepository);
 
-        const user = await usersRepository.findByEmail(email);
+        const user = await usersRepository.findById(id);
 
         if (!user) {
-            throw new AppError('User not found');
+            throw new AppError('User not found.');
         }
 
-        const userExists = await usersRepository.findByEmail(email);
+        const emailExists = await usersRepository.findByEmail(email);
 
-        if (userExists) {
+        if (emailExists && emailExists.id !== user.id) {
             throw new AppError(
                 'There is already a user with this email address.',
             );
         }
 
-        user.name = name;
-        user.email = email;
-        user.password = password;
+        if (name.length > 0) {
+            user.name = name;
+        }
+        if (email.length > 0) {
+            user.email = email;
+        }
 
         await usersRepository.save(user);
 

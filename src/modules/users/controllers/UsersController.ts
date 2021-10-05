@@ -50,14 +50,15 @@ export default class UsersController {
         request: Request,
         response: Response,
     ): Promise<Response> {
-        const { name, email, password } = request.body;
+        const { name, email } = request.body;
+        const { id } = request.params;
 
         const updateUser = new UpdateUserService();
 
         const user = updateUser.execute({
+            id,
             name,
             email,
-            password,
         });
 
         return response.json(user);
