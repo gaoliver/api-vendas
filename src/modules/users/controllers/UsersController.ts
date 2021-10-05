@@ -40,7 +40,7 @@ export default class UsersController {
 
         const getUser = new GetUserService();
 
-        const user = await getUser.execute(email);
+        const user = await getUser.execute({ email });
 
         return response.json(user);
     }

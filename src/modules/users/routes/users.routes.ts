@@ -1,11 +1,16 @@
 import { Router } from 'express';
 import { celebrate, Joi, Segments } from 'celebrate';
+import multer from 'multer';
 
 import UsersController from '../controllers/UsersController';
 import IsAuthenticated from '../../../shared/http/middlewares/IsAuthenticated';
+import UserAvatarController from '../controllers/UserAvatarController';
+import uploadConfig from '@config/upload';
 
 const usersRouter = Router();
 const usersController = new UsersController();
+const userAvatarController = new UserAvatarController();
+const upload = multer(uploadConfig);
 
 // Create User
 usersRouter.post(
@@ -22,11 +27,11 @@ usersRouter.post(
 
 // Get User by ID
 usersRouter.get(
-    '/:id',
+    '/user',
     IsAuthenticated,
     celebrate({
-        [Segments.PARAMS]: {
-            id: Joi.string().uuid().required(),
+        [Segments.BODY]: {
+            email: Joi.string().email().required(),
         },
     }),
     usersController.get,
@@ -37,16 +42,18 @@ usersRouter.patch(
     '/:id',
     IsAuthenticated,
     celebrate({
-        [Segments.BODY]: {
-            name: Joi.string(),
-            price: Joi.number().precision(2),
-            quantity: Joi.number(),
-        },
         [Segments.PARAMS]: {
             id: Joi.string().uuid().required(),
         },
     }),
     usersController.update,
+);
+
+usersRouter.patch(
+    '/avatar',
+    IsAuthenticated,
+    upload.single('avatar'),
+    userAvatarController.update,
 );
 
 // Delete Produto
