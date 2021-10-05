@@ -8,9 +8,9 @@ export default class UserAvatarController {
     ): Promise<Response> {
         const updateAvatar = new UpdateUserAvatarService();
 
-        const user = updateAvatar.execute({
+        const user = await updateAvatar.execute({
             user_id: request.user.id,
-            avatarFileName: request.file?.filename,
+            avatarFileName: request.file?.filename as string,
         });
 
         return response.json(user);

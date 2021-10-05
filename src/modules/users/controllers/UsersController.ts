@@ -55,7 +55,7 @@ export default class UsersController {
 
         const updateUser = new UpdateUserService();
 
-        const user = updateUser.execute({
+        const user = await updateUser.execute({
             id,
             name,
             email,

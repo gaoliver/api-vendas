@@ -39,7 +39,7 @@ usersRouter.get(
 
 // Edit User
 usersRouter.patch(
-    '/:id',
+    '/user/:id',
     IsAuthenticated,
     celebrate({
         [Segments.PARAMS]: {
