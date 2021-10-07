@@ -40,7 +40,7 @@ export default class UsersController {
 
         const getUser = new GetUserService();
 
-        const user = await getUser.execute(email);
+        const user = await getUser.execute({ email });
 
         return response.json(user);
     }
@@ -50,14 +50,15 @@ export default class UsersController {
         request: Request,
         response: Response,
     ): Promise<Response> {
-        const { name, email, password } = request.body;
+        const { name, email } = request.body;
+        const { id } = request.params;
 
         const updateUser = new UpdateUserService();
 
-        const user = updateUser.execute({
+        const user = await updateUser.execute({
+            id,
             name,
             email,
-            password,
         });
 
         return response.json(user);
