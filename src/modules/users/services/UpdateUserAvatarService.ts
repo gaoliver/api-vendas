@@ -9,11 +9,11 @@ import User from '../typeorm/entities/User';
 
 interface IRequest {
     user_id: string;
-    avatarFileName: string | undefined;
+    avatarFilename: string | undefined;
 }
 
 export default class UpdateUserAvatarService {
-    public async execute({ user_id, avatarFileName }: IRequest): Promise<User> {
+    public async execute({ user_id, avatarFilename }: IRequest): Promise<User> {
         const usersRepository = getCustomRepository(UserRepository);
 
         const user = await usersRepository.findById(user_id);
@@ -33,11 +33,11 @@ export default class UpdateUserAvatarService {
             }
         }
 
-        if (avatarFileName === undefined) {
+        if (avatarFilename === undefined) {
             throw new AppError('No media selected.');
         }
 
-        user.avatar = avatarFileName;
+        user.avatar = avatarFilename;
 
         await usersRepository.save(user);
 
