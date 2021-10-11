@@ -4,7 +4,7 @@ import SendForgorPsswdEmailService from '../services/SendForgorPsswdEmailService
 
 export default class ForgotPsswdController {
     // Default create user
-    public async index(
+    public async create(
         request: Request,
         response: Response,
     ): Promise<Response> {
