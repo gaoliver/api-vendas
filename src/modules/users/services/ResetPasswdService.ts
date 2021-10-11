@@ -1,6 +1,5 @@
 import { getCustomRepository } from 'typeorm';
-import { addHours } from 'date-fns/esm';
-import { isAfter } from 'date-fns';
+import { addHours, isAfter } from 'date-fns';
 import { hash } from 'bcrypt';
 
 import AppError from '@shared/errors/AppError';
