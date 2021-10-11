@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 
 import ResetPasswdService from '../services/ResetPasswdService';
 
-export default class ForgotPsswdController {
+export default class ResetPsswdController {
     // Default create user
     public async create(
         request: Request,
