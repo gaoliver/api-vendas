@@ -29,7 +29,7 @@ export default class SendForgorPsswdEmailService {
             },
             subject: '[API Vendas] Recuperação de senha',
             templateData: {
-                template: `Olá {{name}}. Aqui está o seu token para recuperação de senha: {{token?.token}}`,
+                template: `Olá {{name}}. Aqui está o seu token para recuperação de senha: {{token}}`,
                 variables: {
                     name: user.name,
                     token: token?.token,
