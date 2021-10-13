@@ -23,8 +23,18 @@ export default class SendForgorPsswdEmailService {
         const token = await userTokensRepository.generate(user.id);
 
         await EtherealMail.sendMail({
-            to: email,
-            body: `Solicitação de redefinição de senha recebida. Token: ${token?.token}`,
+            to: {
+                name: user.name,
+                email: user.email,
+            },
+            subject: '[API Vendas] Recuperação de senha',
+            templateData: {
+                template: `Olá {{name}}. Aqui está o seu token para recuperação de senha: {{token?.token}}`,
+                variables: {
+                    name: user.name,
+                    token: token?.token,
+                },
+            },
         });
     }
 }
