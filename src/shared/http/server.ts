@@ -8,11 +8,14 @@ import 'express-async-errors';
 import '@shared/typeorm';
 import routes from './routes';
 import AppError from '@shared/errors/AppError';
+import upload from '@config/upload';
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
+
+app.use('/files', express.static(upload.directory));
 
 app.use(routes);
 

@@ -48,7 +48,7 @@ productsRouter.patch(
 
 // Delete Produto
 productsRouter.delete(
-    '/:id',
+    '/product/:id',
     celebrate({
         [Segments.PARAMS]: {
             id: Joi.string().uuid().required(),
