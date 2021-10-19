@@ -6,9 +6,11 @@ import UsersController from '../controllers/UsersController';
 import IsAuthenticated from '../../../shared/http/middlewares/IsAuthenticated';
 import UserAvatarController from '../controllers/UserAvatarController';
 import uploadConfig from '@config/upload';
+import UserProfileController from '../controllers/UserProfileController';
 
 const usersRouter = Router();
 const usersController = new UsersController();
+const userProfileController = new UserProfileController();
 const userAvatarController = new UserAvatarController();
 const upload = multer(uploadConfig);
 
@@ -35,7 +37,9 @@ usersRouter.get(
     usersController.get,
 );
 
-usersRouter.patch('/user', IsAuthenticated, usersController.update);
+usersRouter.get('/profile', IsAuthenticated, userProfileController.get);
+
+usersRouter.patch('/user', IsAuthenticated, userProfileController.update);
 
 usersRouter.patch(
     '/avatar',
