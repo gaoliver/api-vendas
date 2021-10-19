@@ -12,7 +12,6 @@ const usersController = new UsersController();
 const userAvatarController = new UserAvatarController();
 const upload = multer(uploadConfig);
 
-// Create User
 usersRouter.post(
     '/',
     celebrate({
@@ -25,7 +24,6 @@ usersRouter.post(
     usersController.index,
 );
 
-// Get User by ID
 usersRouter.get(
     '/user',
     IsAuthenticated,
@@ -37,17 +35,7 @@ usersRouter.get(
     usersController.get,
 );
 
-// Edit User
-usersRouter.patch(
-    '/user/:id',
-    IsAuthenticated,
-    celebrate({
-        [Segments.PARAMS]: {
-            id: Joi.string().uuid().required(),
-        },
-    }),
-    usersController.update,
-);
+usersRouter.patch('/user', IsAuthenticated, usersController.update);
 
 usersRouter.patch(
     '/avatar',
@@ -56,7 +44,6 @@ usersRouter.patch(
     userAvatarController.update,
 );
 
-// Delete Produto
 usersRouter.delete(
     '/:id',
     IsAuthenticated,
@@ -68,7 +55,6 @@ usersRouter.delete(
     usersController.delete,
 );
 
-// Listar todos os produtos
 usersRouter.get('/', IsAuthenticated, usersController.list);
 
 export default usersRouter;
