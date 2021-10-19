@@ -2,15 +2,25 @@ import { getCustomRepository } from 'typeorm';
 
 import AppError from '@shared/errors/AppError';
 import UsersRepository from '../typeorm/repositories/UsersRepository';
+import User from '../typeorm/entities/User';
+import { compare, hash } from 'bcrypt';
 
 interface IRequest {
     id: string;
     name: string;
     email: string;
+    password: string;
+    old_password: string;
 }
 
 export default class UpdateUserService {
-    public async execute({ id, name, email }: IRequest): Promise<IRequest> {
+    public async execute({
+        id,
+        name,
+        email,
+        password,
+        old_password,
+    }: IRequest): Promise<User> {
         const usersRepository = getCustomRepository(UsersRepository);
 
         const user = await usersRepository.findById(id);
@@ -25,6 +35,20 @@ export default class UpdateUserService {
             throw new AppError(
                 'There is already a user with this email address.',
             );
+        }
+
+        if (password && !old_password) {
+            throw new AppError('Old password is required.');
+        }
+
+        if (password && old_password) {
+            const checkOldPassword = await compare(old_password, user.password);
+
+            if (!checkOldPassword) {
+                throw new AppError('Old password does not match.');
+            }
+
+            user.password = await hash(password, 8);
         }
 
         if (name.length > 0) {
