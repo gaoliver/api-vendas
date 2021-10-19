@@ -42,26 +42,6 @@ export default class UsersController {
         return response.json(user);
     }
 
-    public async update(
-        request: Request,
-        response: Response,
-    ): Promise<Response> {
-        const { name, email, password, old_password } = request.body;
-        const { id } = request.user;
-
-        const updateUser = new UpdateUserService();
-
-        const user = await updateUser.execute({
-            id,
-            name,
-            email,
-            password,
-            old_password,
-        });
-
-        return response.json(user);
-    }
-
     public async delete(
         request: Request,
         response: Response,
