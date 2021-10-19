@@ -7,7 +7,6 @@ import ListUsersService from '../services/ListUsersService';
 import UpdateUserService from '../services/UpdateUserService';
 
 export default class UsersController {
-    // Default create user
     public async index(
         request: Request,
         response: Response,
@@ -25,7 +24,6 @@ export default class UsersController {
         return response.json(user);
     }
 
-    // List users
     public async list(request: Request, response: Response): Promise<Response> {
         const listUsers = new ListUsersService();
 
@@ -34,7 +32,6 @@ export default class UsersController {
         return response.json(users);
     }
 
-    // Get user
     public async get(request: Request, response: Response): Promise<Response> {
         const { email } = request.body;
 
@@ -45,13 +42,12 @@ export default class UsersController {
         return response.json(user);
     }
 
-    // Edit user
     public async update(
         request: Request,
         response: Response,
     ): Promise<Response> {
-        const { name, email } = request.body;
-        const { id } = request.params;
+        const { name, email, password, old_password } = request.body;
+        const { id } = request.user;
 
         const updateUser = new UpdateUserService();
 
@@ -59,12 +55,13 @@ export default class UsersController {
             id,
             name,
             email,
+            password,
+            old_password,
         });
 
         return response.json(user);
     }
 
-    // Delete user
     public async delete(
         request: Request,
         response: Response,
