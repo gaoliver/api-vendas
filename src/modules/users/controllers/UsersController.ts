@@ -4,7 +4,6 @@ import CreateUserService from '../services/CreateUsersService';
 import DeleteUserService from '../services/DeleteUserService';
 import GetUserService from '../services/GetUserService';
 import ListUsersService from '../services/ListUsersService';
-import UpdateUserService from '../services/UpdateUserService';
 
 export default class UsersController {
     public async index(
