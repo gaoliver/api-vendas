@@ -9,8 +9,8 @@ interface IRequest {
     id: string;
     name: string;
     email: string;
-    password: string;
-    old_password: string;
+    password?: string;
+    old_password?: string;
 }
 
 export default class UpdateUserService {
